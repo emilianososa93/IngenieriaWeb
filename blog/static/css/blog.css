@@ -13,12 +13,11 @@ body  a{
 body  div{
         margin-left: 120px;
     }
-body  div{
-        
-    }
+
+
+ 
 .page-header {
         background-color: #ff9400;
-        margin-top: 0;
         padding: 20px 20px 20px 40px;
         text-align: center;   #centrar el titulo
     }
@@ -57,9 +56,6 @@ body  div{
         margin-right: 20px;
     }
 
-    .post {
-        margin-bottom: 70px;
-    }
 
     .post h1 a, .post h1 a:visited {
         color: #000000;
