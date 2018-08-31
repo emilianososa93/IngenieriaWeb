@@ -7,24 +7,23 @@ h2 a {
         color: #000000;
     }
 body  a{
-        padding-left: 15px;
         color: #000000;
     }
 body  div{
         margin-left: 120px;
+        margin-top: 0px;
     }
 
 
  
 .page-header {
         background-color: #ff9400;
-        padding: 20px 20px 20px 40px;
         text-align: center;   #centrar el titulo
     }
 
     .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
         color: #ffffff;
-        font-size: 36pt;
+        font-size: 20pt;
         text-decoration: none;
     }
 
@@ -37,12 +36,11 @@ body  div{
     }
 
     .date {
-        float: right;
         color: #828282;
+        margin-top: 70px;
     }
 
     .save {
-        float: right;
     }
 
     .post-form textarea, .post-form input {
