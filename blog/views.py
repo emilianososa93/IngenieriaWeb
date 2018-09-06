@@ -43,6 +43,7 @@ def post_edit(request, pk):
 
 
 def post_login(request):
+
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():

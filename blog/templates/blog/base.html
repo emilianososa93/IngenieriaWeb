@@ -38,24 +38,19 @@
                     <li>    
                         <a href="#">Buscar</a>
                     </li>
-                    {% if request.user.is_authenticated %}
-                    <li>
-                        <a href="#">Publicar</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'perfil' pk=request.user.id %}">{{request.user.username}}</a>
-                    </li>
-                     <li>
-                        <a href="#">Salir</a>
-                    </li>
-                    {% else %}
+                        <li>
+                            <a href="#">Publicar</a>
+                        </li>
+                        
+                         <li>
+                            <a href="#">Salir</a>
+                        </li>
                     <li>
                         <a href="/post/login/">Ingresar</a>
                     </li>
                     <li>
                         <a href="/post/registro/">Registrarse</a>
                     </li>
-                    {% endif %}
                 </ul>
             </div> 
         </div>
