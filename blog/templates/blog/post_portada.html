@@ -1,6 +1,25 @@
 {% extends 'blog/base.html'%}
 
-
+{% block title %}
+Portada
+{% endblock %}
+{% block navbar%} 
+{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
 <head>
-    <title>Portada</title>
+	<link rel="stylesheet" href="{% static 'css/portada.css' %}">
 </head>
+<body>
+	<div class="row"> 
+		<div style="text-align: center" class="col-md-6 col-md-offset-3"> 
+			<div  class="form-group">
+				 <h1>BIENVENIDO</h1>
+			</div> 
+		</div> 
+	</div>
+	<img src="/ComunidadBateros/imagenes/logo.jpg.jpeg" width="600" height="400" />
+	<br/><br/> 
+</body>
+
+{% endblock %}﻿
