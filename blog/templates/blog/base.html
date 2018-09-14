@@ -27,9 +27,6 @@
                     <li>
                         <a href="#">Quienes somos</a>
                     </li>
-                    <li>    
-                        <a href="#">Buscar</a>
-                    </li>
                     {% if request.user.is_authenticated %}
                     <li>
                         <a href="/post/">Secciones</a>
@@ -40,18 +37,25 @@
                     </li>
                     {% endif %}                       
                 </ul>
-                <div class="collapse navbar-collapse" >
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">
                         <a href="#page-top"></a>
                     </li>           
-                    {% if request.user.is_authenticated %}
+                    <form id="busqueda" class="nav navbar-nav navbar-left navbar-form" >
+                            <div class="input-group">
+                                <input type="text" name="q" id="busqueda" class="form-control" placeholder="Buscar">
+                                <span class="input-group-btn">
+                                    <button id="busqueda" class="btn btn-danger" type="submit">Buscar</button>
+                                </span>
+                            </div>
+                    </form>
                     <li>
                         <a href="/post/login/">Ingresar</a>
                     </li>
                     <li>
                         <a href="/post/registro/">Registrarse</a>
                     </li>
+                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="#">Salir</a>
                     </li>
