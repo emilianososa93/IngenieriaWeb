@@ -107,3 +107,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = reverse_lazy('/post/')
 LOGOUT_REDIRECT_URL = reverse_lazy('/post/login/')
+

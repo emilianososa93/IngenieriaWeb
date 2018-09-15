@@ -27,13 +27,16 @@
                     <li>
                         <a href="#">Quienes somos</a>
                     </li>
-                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="/post/">Secciones</a>
                     </li>
-
+                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="/post/new">Publicar</a>
+                    </li>
+                    {% else%}
+                    <li>
+                        <a href="/post/login">Publicar</a>
                     </li>
                     {% endif %}                       
                 </ul>

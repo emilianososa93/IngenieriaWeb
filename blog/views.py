@@ -2,11 +2,10 @@ from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
 from django.contrib.auth.models import User as userAuth
-from django.shortcuts import render, get_object_or_404
-from .forms import PostForm
+from django.shortcuts import render
+from .forms import (PostForm, UserLoginForm)
 from django.shortcuts import redirect
-from django.contrib.auth import logout, login, authenticate
-from django.shortcuts import render, redirect
+from django.contrib.auth import (logout, login, authenticate, get_user_model)
 #Aca se detallan las vistas refenreciando al archivo html
 
 
@@ -46,19 +45,14 @@ def post_edit(request, pk):
 
 
 def post_login(request):
-
-    if request.method == "POST":
-        usuario= request.POST['username']
-        contraseña = request.POST['password']
-        user = authenticate(username=usuario, password=contraseña)
-        if user is not None:
-            login(request, user)
-            user = userAuth.objects.get(username=request.user)
-            return redirect('post_portada')
-            #si no esta registrado deberia ver eso
-        else:
-            return render(request, 'blog/post_login.html', {'error': True})
-    return render(request, 'blog/post_login.html')
+    form = UserLoginForm(request.POST or None)
+    if form.is_valid():
+        username = form.cleaned_data.get("username")
+        password = form.cleaned_data.get("password")
+        return redirect('post_portada')
+    else:
+        return render(request, 'blog/post_login.html', {'error': True})
+    return render(request, 'blog/post_login.html', {'form': form})
 
 def post_registro(request):
     if request.method == "POST":
@@ -85,3 +79,5 @@ def post_portada(request):
     else:
         form = PostForm()
     return render(request, 'blog/post_portada.html', {'form': form})
+
+
