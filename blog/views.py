@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import Post
 from django.contrib.auth.models import User as userAuth
 from django.shortcuts import render
-from .forms import (PostForm, UserLoginForm)
+from .forms import (PostForm, PostLogin)
 from django.shortcuts import redirect
 from django.contrib.auth import (logout, login, authenticate, get_user_model)
 #Aca se detallan las vistas refenreciando al archivo html
@@ -45,11 +45,12 @@ def post_edit(request, pk):
 
 
 def post_login(request):
-    form = UserLoginForm(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data.get("username")
-        password = form.cleaned_data.get("password")
-        return redirect('post_portada')
+    if request.method == "POST":
+        form = PostLogin(request.POST)
+        if form.is_valid():
+            username = request.username
+            password = request.password
+            return redirect('post_portada')
     else:
         return render(request, 'blog/post_login.html', {'error': True})
     return render(request, 'blog/post_login.html', {'form': form})
