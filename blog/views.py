@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
-from django.contrib.auth.models import User as userAuth
-from django.shortcuts import render
-from .forms import (PostForm, PostLogin)
-from django.shortcuts import redirect
-from django.contrib.auth import (logout, login, authenticate, get_user_model)
-#Aca se detallan las vistas refenreciando al archivo html
+from django.shortcuts import render , redirect
+from .forms import PostForm, UserForm, RegisterForm
+from django.contrib.auth import logout, login, authenticate, get_user_model
+from django.views import generic
+from django.views.generic import View
+from django.http import HttpResponseRedirect
+
 
 
 def post_list(request):
@@ -43,30 +44,61 @@ def post_edit(request, pk):
             form = PostForm(instance=post)
         return render(request, 'blog/post_edit.html', {'form': form})
 
+#
+#Falta que controle si el usuario que se loguea esta registrado
+#El registro funciona
+#
+class post_login(View):
+    form_class = UserForm
 
-def post_login(request):
-    if request.method == "POST":
-        form = PostLogin(request.POST)
-        if form.is_valid():
-            username = request.username
-            password = request.password
-            return redirect('post_portada')
-    else:
-        return render(request, 'blog/post_login.html', {'error': True})
-    return render(request, 'blog/post_login.html', {'form': form})
+    def get(self,request):
+        form = self.form_class(None)
+        return render(request, 'blog/post_login.html', {'form': form})
 
-def post_registro(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
+    def post(self,request):
+        form = self.form_class(request.POST)
+
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_list', pk=post.pk)
-    else:
-        form = PostForm()
-    return render(request, 'blog/post_registro.html', {'form': form})
+            user = form.save(commit=False)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password1)
+
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                return redirect('post_portada')
+        return render(request, 'blog/post_login.html', {'form': form})
+
+class post_registro(View):
+    form_class = RegisterForm
+
+    def get(self,request):
+        form = self.form_class(None)
+        return render(request, 'blog/post_registro.html', {'form': form})
+
+    def post(self,request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            password1 = form.cleaned_data['password1']
+            password2 = form.cleaned_data['password2']
+            nombre = form.cleaned_data['nombre']
+            apellido = form.cleaned_data['apellido']
+            user.set_password(password1)
+            user.save()
+
+            user = authenticate(username=username, password=password1)
+
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                return redirect('post_portada')
+        return render(request, 'blog/post_registro.html', {'form': form})
 
 def post_portada(request):
     if request.method == "POST":
@@ -81,4 +113,11 @@ def post_portada(request):
         form = PostForm()
     return render(request, 'blog/post_portada.html', {'form': form})
 
+def logout(request):
+    try:
+        print("ok")
+        auth_logout(request)
+    except Exception as e:
+        print(e)
+    return HttpResponseRedirect("/")
 
