@@ -105,6 +105,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-LOGIN_REDIRECT_URL = reverse_lazy('/post/')
+LOGIN_REDIRECT_URL = reverse_lazy('/post/portada/')
 LOGOUT_REDIRECT_URL = reverse_lazy('/post/login/')
 
