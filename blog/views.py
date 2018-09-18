@@ -51,32 +51,20 @@ def post_edit(request, pk):
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
-class post_login(View):
-
-    form_class = UserForm
-
-    def get(self,request):
-        form = self.form_class(None)
-        return render(request, 'blog/post_login.html', {'form': form})
-    def post(self,request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            if User.objects.filter(username=form.cleaned_data['username']).exists():
-                #revisar que controle que la contraseña ingresada sea la correcta.
-                if User.objects.filter(password=form.cleaned_data['password']) == (User.objects.filter(username=form.cleaned_data['username']).password):
-                    user = form.save(commit=False)
-                    username = form.cleaned_data['username']
-                    password = form.cleaned_data['password']
-                    user = authenticate(username=username, password=password)
-                    if user is not None:
-                        if user.is_active:
-                            login(request,user)
-                        return redirect('post_portada')
-                else:
-                    messages.success(request, "Usuario/Contraseña ingresado no es valido ")
-            else:
-                messages.success(request, "Usuario/Contraseña ingresado no es valido ")
-        return render(request, 'blog/post_login.html', {'form': form})
+def post_login(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('post_portada')
+        else:
+            messages.success(request, "Usuario/contraseña ingresado invalido") 
+    else:
+        form = UserForm(request.POST)
+    return render(request, 'blog/post_login.html', {'form': form})
 
 class post_registro(View):
     form_class = RegisterForm
@@ -135,10 +123,6 @@ def post_portada(request):
 
 @login_required
 def logout(request):
-    try:
-        print("ok")
-        auth_logout(request)
-    except Exception as e:
-        print(e)
-    return HttpResponseRedirect("/")
+    logout(request)
+    return redirect('post_portada')
 
