@@ -11,7 +11,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
-from django.core.mail import send_mail
 
 
 def post_list(request):
@@ -89,10 +88,6 @@ class post_registro(View):
                         nombre = form.cleaned_data['nombre']
                         apellido = form.cleaned_data['apellido']
 
-                        email_subject   = 'Comunidad Bateros'
-                        email_body      = "Gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: https://comunidadbateros.herokuapp.com/" 
-                    
-                        send_mail(email_subject,email_body, 'comunidadbateros@gmail.com',[email] )
 
                         user = User.objects.create_user(username=username, password=password1,email=email,first_name=nombre,last_name=apellido)
                         user.save()

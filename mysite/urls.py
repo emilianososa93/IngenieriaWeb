@@ -1,7 +1,11 @@
 from django.conf.urls import include, url
+from . import views
 from django.contrib import admin
+from django.contrib.auth.views import login,logout_then_login
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('blog.urls')),
+    url(r'^accounts/login/$', views.post_login, name ='post_login' ),
+    url(r'^post/logout/$', logout_then_login, name ='post_logout' ),
 ]
