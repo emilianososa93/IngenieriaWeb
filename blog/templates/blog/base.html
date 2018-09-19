@@ -30,15 +30,9 @@
                     <li>
                         <a href="/post/">Secciones</a>
                     </li>
-                    {% if request.user.is_authenticated %}
                     <li>
                         <a href="/post/new">Publicar</a>
-                    </li>
-                    {% else%}
-                    <li>
-                        <a href="/accounts/login/">Publicar</a>
-                    </li>
-                    {% endif %}                       
+                    </li>                      
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="hidden">

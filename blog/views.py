@@ -12,6 +12,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import send_mail
+import random
+import os, string
 
 
 def post_list(request):
@@ -53,6 +55,10 @@ def post_edit(request, pk):
 
 
 def post_login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
+
+    url_next = request.GET.get('next', None) 
     if request.method == "POST":
         form = UserForm(request.POST)
         username = request.POST['username']
@@ -60,7 +66,10 @@ def post_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('post_portada')
+            if url_next is not None:
+                return HttpResponseRedirect(url_next)
+            else:
+                return HttpResponseRedirect('/') 
         else:
             messages.success(request, "Usuario/contraseña ingresado invalido") 
     else:
@@ -89,9 +98,11 @@ class post_registro(View):
                         nombre = form.cleaned_data['nombre']
                         apellido = form.cleaned_data['apellido']
 
+                        N = 20
+                        token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
                         email_subject   = 'Comunidad Bateros'
-                        email_body      = "Gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: https://comunidadbateros.herokuapp.com/" 
-                    
+                        email_body      = "Hola %s!, gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: https://comunidadbateros.herokuapp.com/%s" % (nombre, token)
                         send_mail(email_subject,email_body, 'comunidadbateros@gmail.com',[email] )
 
                         user = User.objects.create_user(username=username, password=password1,email=email,first_name=nombre,last_name=apellido)
@@ -130,4 +141,7 @@ def post_portada(request):
 def logout(request):
     logout(request)
     return redirect('post_portada')
+
+
+
 
