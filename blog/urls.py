@@ -1,8 +1,9 @@
 from django.conf.urls import  url,include
-from . import views
 from django.contrib import admin
 from django.contrib.auth.views import login,logout_then_login
 from django.contrib.auth.decorators import login_required
+
+from . import views
 
 urlpatterns = [
 		url(r'^$', views.post_portada, name='post_portada'),
