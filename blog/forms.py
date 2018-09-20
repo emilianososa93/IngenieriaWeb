@@ -1,6 +1,7 @@
 from django import forms
 from .models import Post
 from django.contrib.auth.models import User
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -9,8 +10,8 @@ class PostForm(forms.ModelForm):
 
 
 class UserForm(forms.ModelForm):
-	username = forms.CharField(widget=forms.TextInput)
-	password = forms.CharField(widget=forms.PasswordInput)
+	username = forms.CharField(widget=forms.TextInput,required=True)
+	password = forms.CharField(widget=forms.PasswordInput,required=True)
 	class Meta:
 		model = User
 		fields = ['username', 'password']
@@ -25,6 +26,11 @@ class RegisterForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1', 'password2','nombre','apellido']
+
+
+
+
+
 
 
 

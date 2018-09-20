@@ -11,6 +11,23 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render , redirect, render_to_response, get_object_or_404
+from blog.models import ConfirmacionForm
+
+
+
+def post_portada(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            return redirect('post_list', pk=post.pk)
+    else:
+        form = PostForm()
+    return render(request, 'blog/post_portada.html', {'form': form})
 
 
 def post_list(request):
@@ -75,3 +92,12 @@ def post_login(request):
 
 
 
+
+def post_confirmar(request, activacion_token):
+    if request.user.is_authenticated():
+        HttpResponseRedirect('blog/post_portada.html')
+    confirmacion  = get_object_or_404(ConfirmacionForm, activacion_token = activacion_token )    
+    user = confirmacion.user
+    user.is_active = True
+    user.save()
+    return render(request, 'blog/post_portada.html', {'form': form})

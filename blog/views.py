@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect, render_to_response, get_object_or_404
 from .forms import PostForm, UserForm, RegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate, get_user_model
@@ -14,6 +14,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import send_mail
 import random
 import os, string
+from django.core.context_processors import csrf
+import hashlib, datetime, random
+from django.utils import timezone
+from blog.models import ConfirmacionForm
 
 
 def post_list(request):
@@ -78,11 +82,11 @@ def post_login(request):
 
 class post_registro(View):
     form_class = RegisterForm
-
+    #muestro el form
     def get(self,request):
         form = self.form_class(None)
         return render(request, 'blog/post_registro.html', {'form': form})
-
+    #lo controlo
     def post(self,request):
         form = self.form_class(request.POST)
         if form.is_valid():
@@ -98,31 +102,31 @@ class post_registro(View):
                         nombre = form.cleaned_data['nombre']
                         apellido = form.cleaned_data['apellido']
 
+                        user = User.objects.create_user(username=username, password=password1,email=email,first_name=nombre,last_name=apellido)
+                        user.is_active = False
+                        
+                    
                         N = 20
-                        token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+                        token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))           
+                        usr_confirmacion = ConfirmacionForm(usuario = user, activacion_token = token)
 
                         email_subject   = 'Comunidad Bateros'
-                        email_body      = "Hola %s!, gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: https://comunidadbateros.herokuapp.com/%s" % (nombre, token)
+                        email_body      = "Hola %s!, Gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: http://127.0.0.1:8000/post/portada/%s" % (nombre, token)
                         send_mail(email_subject,email_body, 'comunidadbateros@gmail.com',[email] )
 
-                        user = User.objects.create_user(username=username, password=password1,email=email,first_name=nombre,last_name=apellido)
                         user.save()
+                        usr_confirmacion.save()
 
-                        if user is not None:
-                            if user.is_active:
-                                #esta linea es para solucionar el error de backedn
-                                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                                #########
-                                login(request,user)
-                            return redirect('post_portada')
-                    
+                        messages.success(request, "El usuario se ha registrado con exito. Vefique su casilla de correo")
+                        
+                        
                     else:
                         messages.success(request, "Las contraseñas ingresadas no son iguales")
                 else:
                     messages.success(request, "El correo ingresado ya esta asociado a una cuenta")
             else:
                 messages.success(request, "El Usuario ingresado ya se encuentra registrado.")
-        return render(request, 'blog/post_registro.html', {'form': form})
+        return render(request, 'blog/post_registro.html')
 
 def post_portada(request):
     if request.method == "POST":
@@ -141,6 +145,18 @@ def post_portada(request):
 def logout(request):
     logout(request)
     return redirect('post_portada')
+
+
+def post_confirmar(request, activacion_token):
+    if request.user.is_authenticated():
+        HttpResponseRedirect('blog/post_portada.html')
+    confirmacion  = get_object_or_404(ConfirmacionForm, activacion_token = activacion_token )    
+    user = confirmacion.user
+    user.is_active = True
+    user.save()
+    return render(request, 'blog/post_portada.html')
+
+
 
 
 

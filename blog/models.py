@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import User
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -16,3 +17,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+class ConfirmacionForm(models.Model):
+    usuario = models.OneToOneField(User)
+    activacion_token= models.CharField(max_length = 40)
+
+
+    def __str__(self):
+        return self.usuario.username
