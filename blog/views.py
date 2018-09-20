@@ -3,18 +3,17 @@ from .models import Post
 from django.shortcuts import render , redirect, render_to_response, get_object_or_404
 from .forms import PostForm, UserForm, RegisterForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login, authenticate, get_user_model
+from django.contrib.auth import logout, login, authenticate
 from django.views import generic
 from django.views.generic import View
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 import random
 import os, string
 from django.core.context_processors import csrf
 import hashlib, datetime, random
-from django.utils import timezone
 from blog.models import ConfirmacionForm
 
 

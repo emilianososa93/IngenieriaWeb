@@ -1,17 +1,14 @@
-from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
-from django.shortcuts import render , redirect
 from .forms import PostForm, UserForm, RegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate, get_user_model
 from django.views import generic
 from django.views.generic import View
-from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render , redirect, render_to_response, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import render , redirect, get_object_or_404
 from blog.models import ConfirmacionForm
 
 

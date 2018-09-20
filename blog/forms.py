@@ -1,7 +1,8 @@
 from django import forms
-from .models import Post
 from django.contrib.auth.models import User
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+
+from .models import Post
 
 class PostForm(forms.ModelForm):
     class Meta:
