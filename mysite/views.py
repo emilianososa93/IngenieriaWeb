@@ -69,8 +69,6 @@ def post_edit(request, pk):
 
 
 def post_login(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
 
     url_next = request.GET.get('next', None) 
     if request.method == "POST":
