@@ -72,7 +72,7 @@ def post_login(request):
         else:
             messages.success(request, "Usuario/contraseña ingresado invalido") 
     else:
-        form = UserForm(request.POST)
+        form = UserForm()
     return render(request, 'blog/post_login.html', {'form': form})
 
 class post_registro(View):
