@@ -124,16 +124,6 @@ class post_registro(View):
         return render(request, 'blog/post_registro.html')
 
 def post_portada(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_list', pk=post.pk)
-    else:
-        form = PostForm()
     return render(request, 'blog/post_portada.html', {'form': form})
 
 @login_required

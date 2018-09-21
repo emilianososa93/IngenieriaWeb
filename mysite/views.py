@@ -1,8 +1,8 @@
 from django.utils import timezone
 from .models import Post
-from .forms import PostForm, UserForm, RegisterForm
+from .forms import PostForm, UserForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login, authenticate, get_user_model
+from django.contrib.auth import  login, authenticate, get_user_model
 from django.views import generic
 from django.views.generic import View
 from django.contrib.auth.models import User
@@ -16,12 +16,6 @@ from blog.models import ConfirmacionForm
 def post_portada(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_list', pk=post.pk)
     else:
         form = PostForm()
     return render(request, 'blog/post_portada.html', {'form': form})
