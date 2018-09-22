@@ -124,8 +124,14 @@ class post_registro(View):
         return render(request, 'blog/post_registro.html')
 
 def post_portada(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+    else:
+        form = PostForm()
     return render(request, 'blog/post_portada.html', {'form': form})
 
+def post_secciones(request):
+    return render(request, 'blog/post_secciones.html')
 @login_required
 def logout(request):
     logout(request)

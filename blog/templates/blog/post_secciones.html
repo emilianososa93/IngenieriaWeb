@@ -1,0 +1,138 @@
+{% extends 'blog/base.html'%}
+
+{% block title %}
+Secciones
+{% endblock %}
+{% block navbar%} 
+{% endblock %} 
+{% block content %} 
+{% load staticfiles %}
+<head>
+    <title>Registrarse</title>
+    <link rel="stylesheet" href="{% static 'css/secciones.css' %}">
+</head>
+<body>
+	<form method="post"> 
+		{% csrf_token %}
+		<div class="row">
+			<div  class="col-md-12 col-md-offset-1"> 
+				<div  class="col-md-12 col-md-offset-1" style="margin-left: -100px"> 
+					<h3 style="margin-top: 85px ;font-size: 22px;background:#b9e3f5;border-radius: 7px"  class="form-group">General</h3> 
+					<br>
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Baterías Acusticas</a>
+								<p class="text-center" style="font-size:16px">Comenta o pregunta todo lo desees sobre baterías acusticas.</p>
+							</h4>					
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Baterías Electronicas</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre baterías electrónicas.</p>
+							</h4>				
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Platillos</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre platillos.</p>
+							</h4>					
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Fierros</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fierros/soporte.</p>
+							</h4>						
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Software</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre algun software para baterias.</p>
+							</h4>						
+					</div>					
+				</div>	
+			</div>
+			<div  class="col-md-12 col-md-offset-1"> 
+				<div  class="col-md-12 col-md-offset-1" style="margin-left: -100px"> 
+					<h3 style=" font-size: 22px;background:#b9e3f5;border-radius: 7px"  class="form-group">Clasificados</h3> 
+					<br>
+				</div>		
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Compra</a>
+								<p class="text-center">En esta sección podras publicar aquello que estas buscando comprar</p>
+							</h4>					
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Venta</a>
+								<p class="text-center">En esta sección podras publicar aquello que estas buscando vender</p>
+							</h4>					
+					</div>					
+				</div>	
+			</div> 
+			<div  class="col-md-12 col-md-offset-1"> 
+				<div  class="col-md-12 col-md-offset-1" style="margin-left: -100px"> 
+					<h3 style=" font-size: 22px;background:#b9e3f5;border-radius: 7px"  class="form-group">Charlas</h3> 
+					<br>
+				</div>		
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Trucos y consejos</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fieros / soporte</p>
+							</h4>				
+					</div>					
+				</div>
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Mi primer bateria</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fieros / soporte</p>
+							</h4>					
+					</div>					
+				</div>	
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Musica</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fieros / soporte</p>
+							</h4>					
+					</div>					
+				</div>		
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Bateristas</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fieros / soporte</p>
+							</h4>					
+					</div>					
+				</div>		
+				<div class="col-md-12 col-md-offset-1" style="margin-left: -100px">
+					<div class="panel panel-primary">
+							<h4 href="#" class="text-center">
+								<a href="#" style="font-size: 22px; color: #188dbd">Clinicas</a>
+								<p class="text-center">Comenta o pregunta todo lo desees sobre fieros / soporte</p>
+							</h4>						
+					</div>					
+				</div>		
+			</div>
+			
+			
+		</div> 
+
+	</form>
+</body>
+{% endblock %}﻿
