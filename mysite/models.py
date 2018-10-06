@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 
 class Post(models.Model):
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    idpublicion = models.ForeignKey(User, on_delete=models.CASCADE)
+    idseccion = models.TextField()
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
@@ -19,8 +20,9 @@ class Post(models.Model):
 
 
 class Perfil(models.Model):
-    usuario = models.OneToOneField(User)
+    usuario = models.OneToOneField(User,on_delete = models.CASCADE)
     activacion_token= models.CharField(max_length = 40)
+    descripcion = models.TextField()
 
 
     def __str__(self):
