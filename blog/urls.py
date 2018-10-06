@@ -13,5 +13,6 @@ urlpatterns = [
         url(r'^post/(?P<pk>[0-9]+)/edit/$', views.post_edit, name='post_edit'),
         url(r'^post/registro/$', views.post_registro.as_view(), name ='post_registro'),
         url(r'^post/secciones/$', views.post_secciones, name ='post_secciones'),
+        url(r'^post/validation/$', views.post_validation, name ='post_validation'),
         #url(r'^post/portada(?P<activacion_token>\w+)/', views.post_confirmar, name ='post_portada'),
 ]

@@ -20,7 +20,7 @@ class Post  (models.Model):
 
 
 class Perfil(models.Model):
-    usuario = models.OneToOneField(User)
+    usuario = models.OneToOneField(User,on_delete = models.CASCADE)
     activacion_token= models.CharField(max_length = 40)
     descripcion = models.TextField()
 

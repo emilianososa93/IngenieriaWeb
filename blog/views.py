@@ -100,7 +100,7 @@ class post_registro(View):
                     
                         N = 20
                         token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))           
-                        usr_confirmacion = Perfil(usuario = user, activacion_token = token)
+                        usr_confirmacion = Perfil(usuario = user, activacion_token = token,)
 
                         email_subject   = 'Comunidad Bateros'
                         email_body      = "Hola %s!, Gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: https://comunidadbateros.herokuapp.com/post/portada/%s" % (nombre, token)
@@ -109,7 +109,7 @@ class post_registro(View):
                         user.save()
                         usr_confirmacion.save()
 
-                        messages.success(request, "El usuario se ha registrado con exito. Vefique su casilla de correo")   
+                        return HttpResponseRedirect("/post/validation/")   
                     else:
                         messages.success(request, "Las contraseñas ingresadas no son iguales")
                 else:
@@ -141,6 +141,10 @@ def post_confirmar(request, activacion_token):
     user.is_active = True
     user.save()
     return render(request, 'blog/post_portada.html')
+
+
+def post_validation(request):
+    return render(request, 'blog/post_validation.html')
 
 
 
