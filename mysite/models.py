@@ -18,7 +18,7 @@ class Post(models.Model):
         return self.title
 
 
-class ConfirmacionForm(models.Model):
+class Perfil(models.Model):
     usuario = models.OneToOneField(User)
     activacion_token= models.CharField(max_length = 40)
 
@@ -26,3 +26,31 @@ class ConfirmacionForm(models.Model):
     def __str__(self):
         return self.usuario.username
 
+
+class Comentario(models.Model):
+    idcomentario = models.AutoField(primary_key = True)
+    idusuario = models.ForeignKey(User)
+    idpublicion = models.ForeignKey(Post)
+    texto = models.TextField()
+    fechacomentario = models.DateField()
+    fechabaja =models.DateField()
+
+    def __str__(self):
+        return self.texto
+
+class MotivoDenuncia(models.Model):
+    motivo = models.TextField()
+
+    def __str__(self):
+        return self.motivo
+
+
+class Denuncia(models.Model):
+    idusuario = models.ForeignKey(User)  
+    idcomentario = models.ForeignKey(Comentario)
+    fechaDenuncia = models.DateTimeField()
+    motivo = models.ForeignKey(MotivoDenuncia)
+    idpublicion = models.ForeignKey(Post)
+
+    def __str__(self):
+        return str(self.id)

@@ -12,9 +12,7 @@ from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 import random
 import os, string
-from django.core.context_processors import csrf
-import hashlib, datetime, random
-from blog.models import ConfirmacionForm
+from blog.models import Perfil
 
 
 def post_list(request):
@@ -88,7 +86,6 @@ class post_registro(View):
             if not User.objects.filter(username=form.cleaned_data['username']).exists():
                 if not User.objects.filter(email=form.cleaned_data['email']).exists():
                     if form.cleaned_data['password1'] == form.cleaned_data['password2']:
-                    
                         user = form.save(commit=False)
                         username = form.cleaned_data['username']
                         email = form.cleaned_data['email']
@@ -103,7 +100,7 @@ class post_registro(View):
                     
                         N = 20
                         token = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))           
-                        usr_confirmacion = ConfirmacionForm(usuario = user, activacion_token = token)
+                        usr_confirmacion = Perfil(usuario = user, activacion_token = token)
 
                         email_subject   = 'Comunidad Bateros'
                         email_body      = "Hola %s!, Gracias por registrarte. Para activar tu cuenta haga clíck en el siguiente link: http://127.0.0.1:8000/post/portada/%s" % (nombre, token)
@@ -112,9 +109,7 @@ class post_registro(View):
                         user.save()
                         usr_confirmacion.save()
 
-                        messages.success(request, "El usuario se ha registrado con exito. Vefique su casilla de correo")
-                        
-                        
+                        messages.success(request, "El usuario se ha registrado con exito. Vefique su casilla de correo")   
                     else:
                         messages.success(request, "Las contraseñas ingresadas no son iguales")
                 else:
@@ -141,7 +136,7 @@ def logout(request):
 def post_confirmar(request, activacion_token):
     if request.user.is_authenticated():
         HttpResponseRedirect('blog/post_portada.html')
-    confirmacion  = get_object_or_404(ConfirmacionForm, activacion_token = activacion_token )    
+    confirmacion  = get_object_or_404(Perfil, activacion_token = activacion_token )    
     user = confirmacion.user
     user.is_active = True
     user.save()

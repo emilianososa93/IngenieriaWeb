@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render , redirect, get_object_or_404
-from blog.models import ConfirmacionForm
+from blog.models import Perfil
 
 
 
@@ -85,7 +85,7 @@ def post_login(request):
 def post_confirmar(request, activacion_token):
     if request.user.is_authenticated():
         HttpResponseRedirect('blog/post_portada.html')
-    confirmacion  = get_object_or_404(ConfirmacionForm, activacion_token = activacion_token )    
+    confirmacion  = get_object_or_404(Perfil, activacion_token = activacion_token )    
     user = confirmacion.user
     user.is_active = True
     user.save()

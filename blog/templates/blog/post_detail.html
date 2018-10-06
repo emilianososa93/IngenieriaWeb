@@ -8,11 +8,14 @@
             </div>
         {% endif %}
         <ul>
-            <div style="margin-left: 940px" class="form-group">
+            <div style="margin-left: 940px" class="form-group" >
                 <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
             </div>
-        </ul>
-        <div class="col-md-10 col-md-offset-1" style="margin-left: 20px">
+            <div class="col-md-10 col-md-offset-1" style="margin-left: 20px">
+            <p >{{ post.text|linebreaksbr }}</p>
+        </div>
+        </ul>        
+        <div class="col-md-10 col-md-offset-1" style="margin-left: -150px">
             <form method="get" action="/post/">
             <div class="post"  style="margin-top: 70px">
                 <div class="col-md-3 col-md-offset-1" style="margin-left: 20px">
@@ -20,7 +23,4 @@
                 </div>
             </div>
         </form>
-        </div>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
 {% endblock %}
