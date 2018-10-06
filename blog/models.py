@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import User
 
 class Post  (models.Model):
-    idpublicion = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    idpublicion = models.ForeignKey(User, on_delete=models.CASCADE)
     idseccion = models.TextField()
     title = models.CharField(max_length=200)
     text = models.TextField()
